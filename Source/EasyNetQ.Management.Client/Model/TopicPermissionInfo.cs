@@ -25,6 +25,7 @@ namespace EasyNetQ.Management.Client.Model
             this.vhost = vhost;
 
             Write = Read = allowAll;
+            Exchange = string.Empty;
         }
 
         public string GetUserName()
@@ -39,7 +40,7 @@ namespace EasyNetQ.Management.Client.Model
 
         public TopicPermissionInfo SetExchangeType(string exchangeType)
         {
-            if (exchangeType != null && !exchangeTypes.Contains(exchangeType))
+            if (!string.IsNullOrEmpty(exchangeType) && !exchangeTypes.Contains(exchangeType))
             {
                 throw new EasyNetQManagementException("Unknown exchange type '{0}', expected one of {1}",
                     exchangeType,

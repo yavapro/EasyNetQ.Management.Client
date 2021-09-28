@@ -4,6 +4,6 @@ namespace EasyNetQ.Management.Client.Model
     {
         public string Name { get; set; }
         public string PasswordHash { get; set; }
-        public string Tags { get; set; }
+        public string[] Tags { get; set; }
     }
 }
