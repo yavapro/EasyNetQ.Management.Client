@@ -570,6 +570,24 @@ namespace EasyNetQ.Management.Client
             return DeleteAsync($"permissions/{permission.Vhost}/{permission.User}", cancellationToken);
         }
 
+        public Task CreateUserLimitAsync(UserLimitInfo userLimitInfo,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Ensure.ArgumentNotNull(userLimitInfo, nameof(userLimitInfo));
+
+            return PutAsync(
+                $"user-limits/{userLimitInfo.GetUserName()}/{userLimitInfo.GetLimit()}",
+                userLimitInfo, cancellationToken);
+        }
+
+        public Task DeleteUserLimitAsync(UserLimit userLimit,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Ensure.ArgumentNotNull(userLimit, nameof(userLimit));
+
+            return DeleteAsync($"user-limits/{userLimit.User}/{userLimit.Limit}", cancellationToken);
+        }
+
         public Task<IReadOnlyList<TopicPermission>> GetTopicPermissionsAsync(
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -752,9 +770,6 @@ namespace EasyNetQ.Management.Client
 
         private static void InsertRequestBody<T>(HttpRequestMessage request, T item)
         {
-            if (!request.Headers.Accept.Contains(JsonMediaTypeHeaderValue))
-                request.Headers.Accept.Add(JsonMediaTypeHeaderValue);
-
             var body = JsonConvert.SerializeObject(item, Settings);
             var content = new StringContent(body);
 

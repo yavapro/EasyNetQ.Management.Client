@@ -430,6 +430,26 @@ namespace EasyNetQ.Management.Client
         );
 
         /// <summary>
+        ///     Create a user limit
+        /// </summary>
+        /// <param name="userLimitInfo">The limit to create</param>
+        /// <param name="cancellationToken"></param>
+        Task CreateUserLimitAsync(
+            [NotNull] UserLimitInfo userLimitInfo,
+            CancellationToken cancellationToken = default
+        );
+
+        /// <summary>
+        ///     Delete a user limit
+        /// </summary>
+        /// <param name="userLimit">The limit to delete</param>
+        /// <param name="cancellationToken"></param>
+        Task DeleteUserLimitAsync(
+            [NotNull] UserLimit userLimit,
+            CancellationToken cancellationToken = default
+        );
+
+        /// <summary>
         ///     Create a topic permission
         /// </summary>
         /// <param name="topicPermissionInfo">The topic permission to create</param>
